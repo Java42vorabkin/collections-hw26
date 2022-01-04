@@ -9,18 +9,18 @@ import java.util.Stack;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class MyStackTests {
-MyStack myStack;
+class MyStackArrayTests {
+MyStackArray myStackArray;
 Stack<Integer> stack;
 Integer elements[] = {
 	10, -10, 20, 40, 40, -8, 3	
 };
 	@BeforeEach
 	void setUp() throws Exception {
-		myStack = new MyStack();
+		myStackArray = new MyStackArray();
 		stack = new Stack<>();
 		for(Integer num: elements) {
-			myStack.push(num);
+			myStackArray.push(num);
 			stack.push(num);
 		}
 		
@@ -31,7 +31,7 @@ Integer elements[] = {
 		allPops();
 		boolean flException = false;
 		try {
-			myStack.pop();
+			myStackArray.pop();
 		} catch (NoSuchElementException e) {
 			flException = true;
 		}
@@ -40,31 +40,31 @@ Integer elements[] = {
 
 	private void allPops() {
 		for (int i = 0; i < elements.length; i++) {
-			assertEquals(stack.pop(), myStack.pop());
+			assertEquals(stack.pop(), myStackArray.pop());
 		}
 	}
 
 	@Test
 	void testIsEmpty() {
-		assertFalse(myStack.isEmpty());
+		assertFalse(myStackArray.isEmpty());
 		allPops();
-		assertTrue(myStack.isEmpty());
+		assertTrue(myStackArray.isEmpty());
 	}
 
 	@Test
 	void testPush() {
 		Integer num = 1000;
 		try {
-			myStack.push(num);
+			myStackArray.push(num);
 			stack.push(num);
 			allPops();
 		} catch (Exception ex) {
 			System.out.println(ex.toString());
 		}
-		MyStack tmpStack = new MyStack();
+		MyStackArray tmpStack = new MyStackArray();
 		boolean flException = false;
 		try {
-			for(int i=0; i<=MyStack.MAX_LENGTH; i++) {
+			for(int i=0; i<=MyStackArray.MAX_LENGTH; i++) {
 				tmpStack.push(i);
 			}
 		} catch (Exception ex) {
@@ -76,20 +76,20 @@ Integer elements[] = {
 
 	@Test
 	void testMax() {
-		assertEquals(Collections.max(stack), myStack.max());
+		assertEquals(Collections.max(stack), myStackArray.max());
 		int nPops = 3;
 		pops(nPops);
-		assertEquals(Collections.max(stack), myStack.max());
+		assertEquals(Collections.max(stack), myStackArray.max());
 		nPops = 2;
 		pops(nPops);
-		assertEquals(Collections.max(stack), myStack.max());
+		assertEquals(Collections.max(stack), myStackArray.max());
 		
 	}
 
 	private void pops(int nPops) {
 		for(int i = 0; i < nPops; i++) {
 			stack.pop();
-			myStack.pop();
+			myStackArray.pop();
 		}
 	}
 

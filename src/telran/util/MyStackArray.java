@@ -1,7 +1,5 @@
 package telran.util;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -9,13 +7,16 @@ import java.util.NoSuchElementException;
  * all specified below methods should be written with complexity O[1] 
  *
  */
-public class MyStack {
+public class MyStackArray {
 //TODO fields
+	// This array saves all of MyStackArray Elements
 	static int MAX_LENGTH = 100;
-	// This LinkedList saves all of MyStack Elements
-	private LinkedList<Integer> stack = new LinkedList<>();
-	// The last element of this LinkedList is always Max element of My Stack
-	private LinkedList<Integer> maxElements = new LinkedList<>();
+	private Integer stack[] = new Integer[MAX_LENGTH];
+	private int stack_index = 0;
+	// The last element of this array is always max element of stack
+	private Integer maxElements[] = new Integer[MAX_LENGTH];
+	private int max_index = 0;
+	
 	// Done
 	/*
 	 * removes the last element and returns it
@@ -23,12 +24,12 @@ public class MyStack {
 	 */
 	Integer pop () {
 		//TODO
-		if (stack.isEmpty()) {
+		if(stack_index==0) {
 			throw new NoSuchElementException();
 		}
-		int res = stack.removeLast();
-		if (res == maxElements.getLast()) {
-			maxElements.removeLast();
+		int res = stack[--stack_index];
+		if (res == maxElements[max_index-1]) {
+			max_index--;
 		}
 		return res;
 //		Done
@@ -36,24 +37,24 @@ public class MyStack {
 	/**
 	 * 
 	 * @return true it the stack is empty
-	 */ 
+	 */
 	boolean isEmpty() {
 		//TODO
-		return stack.isEmpty();
+		return stack_index==0;
 //		Done
 	}
 	/**
 	 * adds the given element at the end of the stack
 	 * @param element
 	 */
-	void push(Integer element) throws Exception{
+	void push(Integer element) throws Exception {
 		//TODO
-		if(stack.size() >= MAX_LENGTH) {
+		if(stack_index>=MAX_LENGTH) {
 			throw new Exception("Stack is full");
 		}
-		stack.add(element);
-		if (maxElements.isEmpty() || element >= maxElements.getLast()) {
-			maxElements.add(element);
+		stack[stack_index++] = element;
+		if (max_index==0 || element >= maxElements[max_index-1]) {
+			maxElements[max_index++] = element;
 		}
 //		Done
 	}
@@ -62,10 +63,10 @@ public class MyStack {
 	 * @return maximal element existing in the stack
 	 */
 	Integer max() {
-		if (maxElements.isEmpty()) {
+		if (max_index==0) {
 			throw new NoSuchElementException();
 		}
-		return maxElements.getLast();
+		return maxElements[max_index-1];
 //		Done
 	}
 }
